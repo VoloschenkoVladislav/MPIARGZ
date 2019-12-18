@@ -22,11 +22,11 @@
 			'r' - игрок Х победил.			
 	void draw()
 		Отрисовывает игровое поле.
-  int value (Gameboard G, int i, int j, char side, int number, char player);
-      вычисляет условную "выгодность" хода для компьютера
-  turn_info computer_turn(int number, char player);
-      возвращает наилучший ход для компьютера в виде структуры 
-          turn_info {
-            int x, y; 
-            char side; 
-          };
+  	int value (Gameboard G, int i, int j, char side, int number, char player);
+      		вычисляет условную "выгодность" хода для компьютера
+ 	turn_info computer_turn(int number, char player);
+      		возвращает наилучший ход для компьютера в виде структуры 
+        turn_info {
+          int x, y; 
+          char side; 
+        };
