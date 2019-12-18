@@ -18,6 +18,10 @@ private:
 		char value = '\0';
 	};
 
+	struct turn_info {
+		int x, y;
+		char side;
+	};
 
 	//полный список клеток игрового поля
 	std::vector<std::vector<cell>> status_;
@@ -31,7 +35,10 @@ private:
 	HDC hdc_;
 
 
+	int value(Gameboard G, int i, int j, char side, int number, char player);
+
 public:
+	turn_info computer_turn(int number, char player);
 
 	Gameboard(int m, int n, int x, int y);
 

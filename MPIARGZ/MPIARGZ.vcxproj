@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="computer_turn.cpp" />
     <ClCompile Include="gameboard.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
