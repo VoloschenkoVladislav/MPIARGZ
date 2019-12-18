@@ -30,3 +30,4 @@
           int x, y; 
           char side; 
         };
+	bool cell_status(int i, int j, char side) - возвращает true, если ребро клетки занято. false - если свободно
