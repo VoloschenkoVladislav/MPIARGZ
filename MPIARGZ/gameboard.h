@@ -18,10 +18,13 @@ private:
 		char value = '\0';
 	};
 
+	//структура для записи данных хода компьютера
 	struct turn_info {
-		int x, y;
-		char side;
+		int x, y; 
+		char side; 
 	};
+
+	
 
 	//полный список клеток игрового поля
 	std::vector<std::vector<cell>> status_;
@@ -34,17 +37,18 @@ private:
 	HWND win_;
 	HDC hdc_;
 
-
 	int value(Gameboard G, int i, int j, char side, int number, char player);
+	bool cell_status(int i, int j, char side);
 
-public:
+public:	
 	turn_info computer_turn(int number, char player);
-
+	
 	Gameboard(int m, int n, int x, int y);
 
 	char gameTurn(int x, int y, char side, char player);
 
 	void draw();
+	turn_info inf;
 };
 
 

@@ -60,34 +60,30 @@ Gameboard::turn_info Gameboard::computer_turn(int number, char player) {
 }
 
 int Gameboard::value(Gameboard G, int i, int j, char side, int number, char player) {
-	int result, v = -10000, temp;
+	int result = 0, v = -10000, temp, mn=1;
 	char c = G.gameTurn(i, j, side, player);
 	if (c == 'n') {
 		result = 0;
 		if (player == 'x') player = 'o';
 		else player = 'x';
+		mn = -1;
 	}
 	else if (c == player) result = 1;
-	else if ((c == 'r' && computer == 'x') || (c == 'l' && computer == 'o')) {
+	else if (c == 'r' || c == 'l') {
 		result = 100;
 		number = 0;
 	}
-	else if ((c == 'l' && computer == 'x') || (c == 'r' && computer == 'o')) {
-		result = -100;
-		number = 0;
-	}
-	else result = -1;
 	if (number > 0) {
 		for (i = 0; i < m_ - 1; i++)
 			for (j = 0; j < n_ - 1; j++) {
-				if (!status_[i][j].top) {
+				if (!G.cell_status(i, j, 'u')) {
 					side = 'u';
 					temp = value(G, i, j, side, number - 1, player);
 					if (temp > v) {
 						v = temp;
 					}
 				}
-				if (!status_[i][j].left) {
+				if (!G.cell_status(i, j, 'l')) {
 					side = 'l';
 					temp = value(G, i, j, side, number - 1, player);
 					if (temp > v) {
@@ -98,7 +94,7 @@ int Gameboard::value(Gameboard G, int i, int j, char side, int number, char play
 	
 			j = n_ - 2;
 			for (i = 0; i < m_ - 1; i++)
-				if (!status_[i][j].bottom) {
+				if (!G.cell_status(i, j, 'd')) {
 					side = 'd';
 					temp = value(G, i, j, side, number - 1, player);
 					if (temp > v) {
@@ -107,14 +103,32 @@ int Gameboard::value(Gameboard G, int i, int j, char side, int number, char play
 				}
 			i = m_ - 2;
 			for (j = 0; j < n_ - 1; j++)
-				if (!status_[i][j].right) {
+				if (!G.cell_status(i, j, 'r')) {
 					side = 'r';
 					temp = value(G, i, j, side, number - 1, player);
 					if (temp > v) {
 						v = temp;
 					}
 				}
+			v = v * mn;
 			result += v;
 	}
 	return result;
+}
+
+bool Gameboard::cell_status(int i, int j, char side) {
+	switch (side) {
+	case 'u':
+		return status_[i][j].top;
+		break;
+	case 'd':
+		return status_[i][j].bottom;
+		break;
+	case 'l':
+		return status_[i][j].left;
+		break;
+	case 'r':
+		return status_[i][j].right;
+		break;
+	}
 }
