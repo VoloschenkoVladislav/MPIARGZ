@@ -44,7 +44,7 @@ int main() {
 			}
 			catch (int error) {
 				system("cls");
-				cout << "Error, try again." << endl << "Press any key to continue...";
+				cout << "Error" << endl << "Press any key to try again...";
 				getchar();
 				getchar();
 
@@ -64,16 +64,19 @@ int main() {
 			case 'o':
 				break;
 			case 'w':
+				system("cls");
 				std::cout << "You win!" << std::endl;
 				game.draw();
 				gameCycle = false;
 				break;
 			case 'l':
+				system("cls");
 				std::cout << "You lose!" << std::endl;
 				game.draw();
 				gameCycle = false;
 				break;
 			case 'p':
+				system("cls");
 				std::cout << "Tie!" << std::endl;
 				game.draw();
 				gameCycle = false;
@@ -101,16 +104,19 @@ int main() {
 			case 'o':
 				break;
 			case 'w':
+				system("cls");
 				std::cout << "You win!" << std::endl;
 				game.draw();
 				gameCycle = false;
 				break;
 			case 'l':
+				system("cls");
 				std::cout << "You lose!" << std::endl;
 				game.draw();
 				gameCycle = false;
 				break;
 			case 'p':
+				system("cls");
 				std::cout << "Tie!" << std::endl;
 				game.draw();
 				gameCycle = false;
