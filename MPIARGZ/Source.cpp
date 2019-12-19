@@ -9,7 +9,6 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-
 struct info {
 	int x, y;
 	char side;
@@ -26,25 +25,31 @@ int main() {
 	cout << endl << "Difficulty level: " << endl << "1 - Easy" << endl << "2 - Normal" << endl << "3 - Hard" << endl << "4 - Imposible" << endl << "5 - Suicide" << endl << ">> ";
 	cin >> difficultyLVL;
 	system("cls");
+	if (difficultyLVL > 5) difficultyLVL = 5;
+	if (m > 30) m = 30;
+	if (n > 20) n = 20;
 
 
-
-	Gameboard game(m, n, X_POINT, Y_POINT);
+	Gameboard game(m + 1, n + 1, X_POINT, Y_POINT);
 
 	while (gameCycle) {
 		system("cls");
 		game.draw();
 		if (player == 'x') { //Ход игрока
-			cout << "Your turn" << endl;
+			cout << "Your turn:" << endl;
 			std::cin >> x >> y >> side;
 
 			try {
-				turn = game.gameTurn(x, y, side, player);
+				turn = game.gameTurn(x - 1, y - 1, side, player);
 			}
 			catch (int error) {
-				std::cout << error;
-				system("pause");
-				return 1;
+				system("cls");
+				cout << "Error, try again." << endl << "Press any key to continue...";
+				getchar();
+				getchar();
+
+				system("cls");
+				turn = 'e';
 			}
 			switch (turn) {
 			case 'n':
@@ -60,17 +65,26 @@ int main() {
 				break;
 			case 'w':
 				std::cout << "You win!" << std::endl;
+				game.draw();
 				gameCycle = false;
 				break;
 			case 'l':
 				std::cout << "You lose!" << std::endl;
+				game.draw();
 				gameCycle = false;
+				break;
+			case 'p':
+				std::cout << "Tie!" << std::endl;
+				game.draw();
+				gameCycle = false;
+				break;
+			case 'e':
 				break;
 			}
 		}
 		else { // ход ИИ
-			cout << "Enemy's turn" << endl;
-			Sleep(1000);
+			cout << "Enemy's turn:" << endl;
+			if (difficultyLVL == 1 || difficultyLVL == 2) Sleep(1000);
 			game.inf = game.computer_turn(difficultyLVL, player);
 			turn = game.gameTurn(game.inf.x, game.inf.y, game.inf.side, player);
 
@@ -88,10 +102,17 @@ int main() {
 				break;
 			case 'w':
 				std::cout << "You win!" << std::endl;
+				game.draw();
 				gameCycle = false;
 				break;
 			case 'l':
 				std::cout << "You lose!" << std::endl;
+				game.draw();
+				gameCycle = false;
+				break;
+			case 'p':
+				std::cout << "Tie!" << std::endl;
+				game.draw();
 				gameCycle = false;
 				break;
 			}
